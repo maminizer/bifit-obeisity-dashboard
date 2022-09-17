@@ -1,0 +1,336 @@
+{% extends 'base.html.twig' %}
+
+{#% block title %}
+	Obesity Prediction
+{% endblock %}
+
+{% block body %}
+	<div id="contact" class="text-center">
+		<div class="container">
+
+			<div class="section-title text-center">
+				<h2>
+					Log In
+				</h2>
+				<hr>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed.
+				</p>
+			</div>
+			<div class="col-md-10 col-md-offset-1">
+				<form method="post">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<table class="table table-striped form-horizontal" style="margin-top: 1%">
+									{{ form_start(form) }}
+									<tr>
+										<td>
+											{{ form_label(form.child,"Child") }}
+										</td>
+										<td>
+											{{ form_widget(form.child) }}
+										</td>
+									</tr>
+
+									<tr>
+										<td>
+											{{ form_label(form.farm,"Farmers Markets") }}
+										</td>
+										<td>
+											{{ form_widget(form.farm) }}
+										</td>
+									</tr>
+									<tr>
+										<td>
+											{{ form_label(form.recfa,"Recreation Facilities") }}
+										</td>
+										<td>
+											{{ form_widget(form.recfa) }}
+										</td>
+									</tr>
+									<tr>
+										<td>
+											{{ form_label(form.restaurent,"Restaurent") }}
+										</td>
+										<td>
+											{{ form_widget(form.restaurent) }}
+										</td>
+									</tr>
+									<tr>
+										<td>
+											{{ form_label(form.store,"Store") }}
+										</td>
+										<td>
+											{{ form_widget(form.store) }}
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<buttontype="submit"class="btnbtn-theme04deleteform-control">
+												Predict
+											</button>
+										</td>
+									</tr>
+								</table>
+								{{form_end(form)}}
+								<table class="table table-striped form-horizontal" style="margin-top:1%">
+									<tr>
+										<td>
+											predictedobesity:
+											{{obesity_rate}}
+										</td>
+									</tr>
+									<tr>
+										<td>
+											Averageobesity:
+											{{Average_obesity}}
+										</td>
+									</tr>
+									<tr>
+										<td>
+											obesityevaluation:
+											{{Obesity_evaluation}}
+										</td>
+									</tr>
+								</table>
+								{% if obesity_rate is  defined %}
+								{% endif %}
+							{% endblock %#}
+{% block nav %}
+	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		<ul class="nav navbar-nav navbar-right">
+			<li>
+				<a href="#about" class="page-scroll">
+					Home
+				</a>
+			</li>
+			<li>
+				<a href="" class="page-scroll">
+					Dashboard
+				</a>
+			</li>
+			<li>
+				<a href="{{ path('app_obesity_prediction') }}" class="page-scroll">
+					Obesity Prediction
+				</a>
+			</li>
+			<li>
+				<a href="{{ path('app_desc') }}" class="page-scroll">
+					Data Description
+				</a>
+			</li>
+			<li>
+				<a href="{{ path('app_logout') }}" class="page-scroll">
+					Log Out
+				</a>
+			</li>
+
+		</ul>
+	</div>
+{% endblock %}
+{% block body %}
+	<style>
+		.stati
+		{
+			background: #fff;
+			height: 6em;
+			padding: 1em;
+			margin: 1em 0;
+			-webkit-transition: margin 0.5s ease, box-shadow 0.5s ease; /* Safari */
+			transition: margin 0.5s ease, box-shadow 0.5s ease;
+			-moz-box-shadow: 0 0.2em 0.4em rgb(0, 0, 0, 0.8);
+			-webkit-box-shadow: 0 0.2em 0.4em rgb(0, 0, 0, 0.8);
+			box-shadow: 0 0.2em 0.4em rgb(0, 0, 0, 0.8);
+		}
+		.stati:hover
+		{
+			margin-top: 0.5em;
+			-moz-box-shadow: 0 0.4em 0.5em rgb(0, 0, 0, 0.8);
+			-webkit-box-shadow: 0 0.4em 0.5em rgb(0, 0, 0, 0.8);
+			box-shadow: 0 0.4em 0.5em rgb(0, 0, 0, 0.8);
+		}
+		.stati i
+		{
+			font-size: 3.5em;
+		}
+		.stati div
+		{
+			width: calc(100% - 3.5em);
+			display: block;
+			float: right;
+			text-align: right;
+		}
+		.stati div b
+		{
+			font-size: 2.2em;
+			width: 100%;
+			padding-top: 0;
+			margin-top: -0.2em;
+			margin-bottom: -0.2em;
+			display: block;
+		}
+		.stati div span
+		{
+			font-size: 1em;
+			width: 100%;
+			color: rgb(0, 0, 0, 0.8); !important;
+			display: block;
+		}
+		.stati.left div
+		{
+			float: left;
+			text-align: left;
+		}
+		.stati.bg-nephritis
+		{
+			background: rgb(116, 164, 20);
+			color: white;
+		}
+		.stati.nephritis
+		{
+			color: rgb(116, 164, 20);
+		}
+	</style>
+	<!-- Contact Section -->
+
+	<div id="contact" class="text-center">
+		<div class="container">
+
+			<div class="section-title text-center">
+				<h2>
+					Obesity Prediction
+				</h2>
+				<hr>
+				<p>
+					This current model gives you the result of obesity prediction with given data
+				</p>
+			</div>
+			<div class="col-md-10 col-md-offset-1">
+
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							{{ form_start(form) }}
+
+							{{ form_label(form.child,"Child",{'attr':{'class':'form-control'}}
+							) }}
+
+							{{ form_widget(form.child,{'attr':{'class':'form-control'}}
+							) }}
+
+							<p class="help-block text-danger"></p>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+
+							{{ form_label(form.farm,"Farmers Markets",{'attr':{'class':'form-control'}}
+							) }}
+
+							{{ form_widget(form.farm,{'attr':{'class':'form-control'}}
+							) }}
+
+							<p class="help-block text-danger"></p>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+
+							{{ form_label(form.recfa,"Recreation Facilities",{'attr':{'class':'form-control'}}
+							) }}
+
+							{{ form_widget(form.recfa,{'attr':{'class':'form-control'}}
+							) }}
+
+							<p class="help-block text-danger"></p>
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="form-group">
+
+							{{ form_label(form.restaurent,"Restaurent",{'attr':{'class':'form-control'}}
+							) }}
+
+							{{ form_widget(form.restaurent,{'attr':{'class':'form-control'}}
+							) }}
+
+							<p class="help-block text-danger"></p>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group">
+
+							{{ form_label(form.store,"Store",{'attr':{'class':'form-control'}}
+							) }}
+
+							{{ form_widget(form.store,{'attr':{'class':'form-control'}}
+							) }}
+
+
+							<p class="help-block text-danger"></p>
+						</div>
+					</div>
+					<div id="success"></div>
+					<button type="submit" class="btn btn-custom btn-lg">
+						Predict
+					</button>
+					<p class="help-block text-danger"></p>
+					{{form_end(form)}}
+				</div>
+			</div>
+		</div>
+		<div class="col-md-10 col-md-offset-1">
+
+			<div class="row">
+				<div class="col-md-4">
+					<div class="stati bg-nephritis ">
+						<i class="icon-envelope-open icons"></i>
+						<div>
+							<b>
+								{{obesity_rate}}
+
+							</b>
+							<span>
+								Predicted Obesity
+
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="stati bg-nephritis  ">
+						<i class="icon-envelope-open icons"></i>
+						<div>
+							<b>
+								{{Average_obesity}}
+
+							</b>
+							<span>
+								Average Obesity
+
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="stati bg-nephritis ">
+						<i class="icon-envelope-open icons"></i>
+						<div>
+							<b>
+								{{Obesity_evaluation}}
+							</b>
+							<span>
+								Obesity Evaluation
+
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</dIV>
+{% if obesity_rate is  defined %}
+{% endif %}{% endblock %}
